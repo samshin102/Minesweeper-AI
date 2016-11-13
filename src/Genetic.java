@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 
 public class Genetic {
 	public int popSize = 125;
-	public int purgeRate = 50;
+	public int purgeRate = 62;
 	public List<Network> pop = new ArrayList<>();
 
 	public Genetic(int inputWidth, int hiddenWidth, int hiddenDepth, int output) {
