@@ -2,6 +2,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -29,32 +30,51 @@ public class MineSweeper extends JFrame implements Runnable {
 	public void run() {
 		gene = new Genetic(8, 3, 3, 1);
 		while (true) {
-			try {
-				Thread.sleep(100);
-				mappy.paint();
-				if(mappy.winCheck())
-					System.out.println("you win!");
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			float[][] danger = new float[s][s];
-			for (int r = 0; r < danger.length; r++) {
-				for (int c = 0; c < danger[r].length; c++) {
-					if (mappy.getMappy()[r][c].getShow()) {
-						danger[r][c] = Integer.MAX_VALUE;
-					} else {
-						float[] input = new float[8];
-						input[0] = getMapVal(r - 1, c - 1);
-						input[1] = getMapVal(r - 1, c);
-						input[2] = getMapVal(r - 1, c + 1);
-						input[3] = getMapVal(r, c - 1);
-						input[4] = getMapVal(r, c + 1);
-						input[5] = getMapVal(r + 1, c - 1);
-						input[6] = getMapVal(r + 1, c);
-						input[7] = getMapVal(r + 1, c + 1);
-						// danger[r][c] =
+			List<Network> nets = gene.pop;
+			for (int i = 0; i < nets.size(); i++) {
+				Network net = nets.get(i);
+				float fitness = 0;
+				boolean playing = true;
+				while (playing) {
+					float[][] danger = new float[s][s];
+					for (int r = 0; r < danger.length; r++) {
+						for (int c = 0; c < danger[r].length; c++) {
+							if (mappy.getMappy()[r][c].getShow()) {
+								danger[r][c] = Integer.MAX_VALUE;
+							} else {
+								float[] input = new float[8];
+								input[0] = getMapVal(r - 1, c - 1);
+								input[1] = getMapVal(r - 1, c);
+								input[2] = getMapVal(r - 1, c + 1);
+								input[3] = getMapVal(r, c - 1);
+								input[4] = getMapVal(r, c + 1);
+								input[5] = getMapVal(r + 1, c - 1);
+								input[6] = getMapVal(r + 1, c);
+								input[7] = getMapVal(r + 1, c + 1);
+								danger[r][c] = net.getOutput(input)[0];
+							}
+						}
+					}
+					int lowR = 0;
+					float lowVal = Integer.MAX_VALUE;
+					int lowC = 0;
+					for (int r = 0; r < danger.length; r++) {
+						for (int c = 0; c < danger[c].length; c++) {
+							if (danger[r][c] < lowVal) {
+								lowR = r;
+								lowC = c;
+								lowVal = danger[r][c];
+							}
+						}
+					}
+					if(mappy.activate(lowR, lowC)){
+						fitness += 1;
+					}else{
+						playing = false;
+						net.fitness = fitness;
 					}
 				}
+				reset();
 			}
 		}
 	}
@@ -72,10 +92,10 @@ public class MineSweeper extends JFrame implements Runnable {
 				if (SwingUtilities.isLeftMouseButton(e)) {
 					mappy.paint();
 
-					if(!mappy.activate(X, Y));
-				}
-				else if(SwingUtilities.isRightMouseButton(e)){
-					mappy.flag(X,Y);
+					if (!mappy.activate(X, Y))
+						;
+				} else if (SwingUtilities.isRightMouseButton(e)) {
+					mappy.flag(X, Y);
 					mappy.paint();
 				}
 			}

@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Network implements Comparable<Network> {
-	final float fitness = 0;
+	float fitness = 0;
 	int inputWidth;
 	int hiddenWidth;
 	int hiddenDepth;
