@@ -25,6 +25,8 @@ public class MineSweeper extends JFrame implements Runnable {
 		try {
 			Thread.sleep(100);
 			mappy.paint();
+			if(mappy.winCheck())
+				System.out.println("you win!");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -142,8 +144,7 @@ public class MineSweeper extends JFrame implements Runnable {
 				X-=2;
 				if(SwingUtilities.isLeftMouseButton(e)){
 					mappy.paint();
-					if(!mappy.activate(X, Y))
-						System.exit(0);
+					if(!mappy.activate(X, Y));
 				}
 				else if(SwingUtilities.isRightMouseButton(e)){
 					mappy.flag(X,Y);
