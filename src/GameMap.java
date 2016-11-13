@@ -179,6 +179,7 @@ public class GameMap extends JPanel{
 		g.setColor(Color.black);
 		
 		 g.setFont(g.getFont().deriveFont(g.getFont().getSize() * 2));
+		 g.setFont(getFont().deriveFont(g.getFont().BOLD));
 		
 		for(int i = 1; i<s+1; i++){
 			g.drawLine((w/s)*i, 0, (w/s)*i, (h));
@@ -201,7 +202,7 @@ public class GameMap extends JPanel{
 						g.setColor(Color.RED);
 					}
 					else if(mappy[r][c].getVal()==0){
-						g.setColor(Color.PINK);
+						g.setColor(Color.MAGENTA);
 					}
 					else{
 						g.setColor(Color.BLUE);
