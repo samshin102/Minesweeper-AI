@@ -12,6 +12,7 @@ public class GameMap extends JPanel{
 	int w = 512;
 	int h = 512;
 	int flags;
+	int[] a = {-1, -1};
 	
 	public void paint(){
 		repaint();
@@ -35,6 +36,8 @@ public class GameMap extends JPanel{
 //	}
 	
 	public boolean activate(int X, int Y){
+		a[1] = X;
+		a[0] = Y;
 		if(mappy[X][Y].getVal() == -1){
 			return false;
 		}
@@ -212,6 +215,14 @@ public class GameMap extends JPanel{
 				}
 			}
 		}
+		
+		g.setColor(Color.YELLOW);
+		g.drawLine(a[0] * w/s, a[1] * h/s, a[0]* w/s, (a[1]+1) * h/s);
+		g.drawLine((a[0]+1)* w/s, a[1]* h/s, (a[0]+1)* w/s, (a[1]+1) * h/s);
+		g.drawLine(a[0]* w/s, a[1]* h/s, (a[0]+1)* w/s, a[1]* h/s);
+		g.drawLine(a[0]* w/s, (a[1]+1) * h/s, (a[0]+1)* w/s, (a[1]+1) * h/s);
+		
+		
 		repaint();
 	}
 
