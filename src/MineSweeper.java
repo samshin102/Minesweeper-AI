@@ -26,7 +26,7 @@ public class MineSweeper extends JFrame implements Runnable {
 		if (r < 0 || c < 0 || r >= s || c >= s) {
 			return -2;
 		}
-		if(!mappy.getMappy()[r][c].getShow()){
+		if (!mappy.getMappy()[r][c].getShow()) {
 			return -1;
 		}
 		return mappy.getMappy()[r][c].getVal();
@@ -57,7 +57,6 @@ public class MineSweeper extends JFrame implements Runnable {
 								input[6] = getMapVal(r + 1, c);
 								input[7] = getMapVal(r + 1, c + 1);
 								float d = net.getOutput(input)[0];
-								System.out.println(d);
 								danger[r][c] = d;
 							}
 						}
@@ -74,13 +73,14 @@ public class MineSweeper extends JFrame implements Runnable {
 							}
 						}
 					}
-					System.out.println(lowVal);
-					System.out.println(lowR+" "+lowC);
 					if (mappy.activate(lowR, lowC)) {
 						fitness += 1;
 					} else {
 						playing = false;
 						net.fitness = fitness;
+					}
+					if(mappy.netWinCheck()) {
+						System.exit(1);
 					}
 				}
 				mappy.resetVisible();
