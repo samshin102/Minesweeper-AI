@@ -39,7 +39,7 @@ public class Neuron {
 	}
 
 	public float getValue(int nc) {
-		System.out.println(nc+" "+weight[nc]+" "+ val);
+		//System.out.println(nc+" "+weight[nc]+" "+ val);
 		return weight[nc] * actFunc(val);
 	}
 }
