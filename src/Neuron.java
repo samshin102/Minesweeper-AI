@@ -5,7 +5,7 @@ public class Neuron {
 	int width = 0;
 	private final float initialWeightMax = 5;
 	final float delta = 0.25f;
-	private float[] weight;
+	float[] weight;
 	float val;
 
 	public Neuron() {
@@ -20,8 +20,9 @@ public class Neuron {
 		}
 		val = 0;
 	}
-	
+
 	public Neuron(Neuron p) {
+		width = p.width;
 		weight = new float[p.width];
 		for (int i = 0; i < weight.length; i++) {
 			weight[i] = p.weight[i];
@@ -34,12 +35,12 @@ public class Neuron {
 	}
 
 	private float actFunc(float v) {
-		float actiVal = (float) (Math.pow(Math.E, v) - Math.pow(Math.E, -v) / (Math.pow(Math.E, v) + Math.pow(Math.E, -v)));
+		float actiVal = (float) ((Math.pow(Math.E, v) - Math.pow(Math.E, -v))
+				/ (Math.pow(Math.E, v) + Math.pow(Math.E, -v)));
 		return actiVal;
 	}
 
 	public float getValue(int nc) {
-		//System.out.println(nc+" "+weight[nc]+" "+ val);
 		return weight[nc] * actFunc(val);
 	}
 }
