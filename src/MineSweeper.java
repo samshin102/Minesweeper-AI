@@ -82,6 +82,7 @@ public class MineSweeper extends JFrame implements Runnable {
 						totalFitness += fitness;
 					}
 					if (mappy.netWinCheck()) {
+						System.out.println("Winner!");
 						System.exit(1);
 					}
 				}
