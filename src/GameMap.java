@@ -138,6 +138,17 @@ public class GameMap extends JPanel{
 		}
 	}
 	
+	public boolean winCheck(){
+		for(int r = 0; r<s; r++){
+			for(int c = 0; c<s; c++){
+				if(mappy[r][c].getVal() == -1)
+					if(!mappy[r][c].getFlag())
+						return false;
+			}
+		}
+		return true;
+	}
+	
 	public void paintComponent(Graphics g) {
 		setOpaque(true);
 		super.paintComponent(g);
