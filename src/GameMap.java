@@ -130,7 +130,7 @@ public class GameMap extends JPanel{
 	public void paintComponent(Graphics g) {
 		setOpaque(true);
 		super.paintComponent(g);
-		g.setColor(Color.GRAY);
+		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, w, h);
 		g.setColor(Color.black);
 		for(int i = 1; i<11; i++){
@@ -143,8 +143,10 @@ public class GameMap extends JPanel{
 		for(int r = 0; r<s; r++){
 			for(int c = 0; c<s; c++){
 				if(mappy[r][c].show){
-					if()
-					
+					if(mappy[r][c].getVal()==0){
+						g.setColor(Color.GRAY);
+						g.drawRect((c-1)*w/10, (r-1)*h/10, w/10-1, h/10-1);
+					}
 					else
 					g.drawString("" + mappy[r][c].getVal(), (c)*w/10 +23, (r+1)*h/10 -20);
 					

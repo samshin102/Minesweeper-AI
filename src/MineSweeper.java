@@ -37,6 +37,7 @@ public class MineSweeper extends JFrame implements Runnable{
 	}
 	
 	
+	@SuppressWarnings("static-access")
 	public void init(){
 		mappy = new GameMap(10, 10);
 		
@@ -47,6 +48,7 @@ public class MineSweeper extends JFrame implements Runnable{
 		this.setResizable(false);
 		this.setTitle("Minesweeper");
 		this.setVisible(true);
+		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 	}
 }
 
