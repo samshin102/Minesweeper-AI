@@ -5,8 +5,12 @@ public class node {
 	boolean show = false;
 	boolean flag = false;
 			
-	public void flag(){
+	public int flag(){
 		flag = !flag;
+		if(flag){
+			return -1;
+		}
+		return 1;
 	}
 	
 	public boolean getFlag(){

@@ -11,6 +11,7 @@ public class GameMap extends JPanel{
 	int bombs;
 	int w = 512;
 	int h = 512;
+	int flags;
 	
 	public void paint(){
 		repaint();
@@ -21,6 +22,7 @@ public class GameMap extends JPanel{
 		this.bombs = bombs;
 		mappy = new node[s][s];
 		genMap();
+		flags = bombs;
 	}
 	
 	public node[][] getMappy(){
@@ -130,7 +132,10 @@ public class GameMap extends JPanel{
 	}
 	
 	public void flag(int r, int c){
-		mappy[r][c].flag();
+		flags += mappy[r][c].flag();
+		if(flags == -1){
+			flags += mappy[r][c].flag();
+		}
 	}
 	
 	public void paintComponent(Graphics g) {
