@@ -7,6 +7,7 @@ public class Genetic {
 	public int popSize = 250;
 	public int purgeRate = 20;
 	public List<Network> pop = new ArrayList<>();
+	Network network = new Network();
 
 	public void train() {
 		purge();

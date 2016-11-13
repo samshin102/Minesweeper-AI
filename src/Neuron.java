@@ -2,29 +2,35 @@
 
 public class Neuron {
 	
-	private float[] inputValues;
 	private float weight;
+	float val;
 	
 	public Neuron(){
-		inputValues = new float[1];
 		weight = 1F;
+		val = 0;
 	}
-	public Neuron(float[] inputValues, float weight){
+	public Neuron(float weight){
 		this.weight = weight;
-		inputValues = new float[inputValues.length];
+		val = 0;
 	}
 	
 	public float getWeight(){
 		return weight;
 	}
 	
-	public float actFunc(){
-		float rawInput = 0F;
-		float preOperation = 0;
-		for(float val : inputValues)
-			rawInput += val;
-		preOperation = weight * rawInput;
-		return (float) (Math.pow(Math.E, preOperation)-Math.pow(Math.E, -preOperation) );
+	public float actFunc(float[] rawInput){
+		float summedInput = 0;
+		for(float val : rawInput)
+			summedInput += val;
+		val = (float) (Math.pow(Math.E, summedInput)-Math.pow(Math.E, -summedInput)/Math.pow(Math.E, summedInput)+Math.pow(Math.E, -summedInput) );
+		return val;
+	}
+	public float getValue(){
+		return val;
+	}
+	
+	public float getOutput(){
+		return (weight * val);
 	}
 	
 }
