@@ -17,8 +17,7 @@ public class Network implements Comparable<Network> {
 		createNetwork();
 	}
 
-	public Network(int inputDepth, int hiddenWidth, int hiddenDepth,
-			int outputDepth) {
+	public Network(int inputDepth, int hiddenWidth, int hiddenDepth, int outputDepth) {
 		this.inputWidth = inputDepth;
 		this.hiddenWidth = hiddenWidth;
 		this.hiddenDepth = hiddenDepth;
@@ -81,6 +80,12 @@ public class Network implements Comparable<Network> {
 		for (int i = 0; i < net[net.length - 1].length; i++) {
 			for (int nc = 0; nc < outputWidth; nc++) {
 				output[nc] += net[net.length - 1][i].getValue(nc);
+			}
+		}
+
+		for (int r = 0; r < net.length; r++) {
+			for (int c = 0; c < net[r].length; c++) {
+				net[r][c].val = 0;
 			}
 		}
 		return output;
