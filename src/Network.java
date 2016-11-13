@@ -58,7 +58,7 @@ public class Network implements Comparable<Network> {
 	}
 
 	public void mutate() {
-		int r = randy.nextInt(hiddenWidth + 1);
+		int r = randy.nextInt(hiddenDepth + 1);
 		int c = randy.nextInt(net[r].length);
 		net[r][c].mutate();
 	}

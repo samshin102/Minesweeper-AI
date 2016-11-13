@@ -33,9 +33,10 @@ public class MineSweeper extends JFrame implements Runnable {
 	}
 
 	public void run() {
-		gene = new Genetic(8, 3, 3, 1);
+		gene = new Genetic(8, 4, 1, 1);
 		while (true) {
 			List<Network> nets = gene.pop;
+			float totalFitness = 0;
 			for (int i = 0; i < nets.size(); i++) {
 				Network net = nets.get(i);
 				float fitness = 0;
@@ -78,13 +79,15 @@ public class MineSweeper extends JFrame implements Runnable {
 					} else {
 						playing = false;
 						net.fitness = fitness;
+						totalFitness += fitness;
 					}
-					if(mappy.netWinCheck()) {
+					if (mappy.netWinCheck()) {
 						System.exit(1);
 					}
 				}
 				mappy.resetVisible();
 			}
+			System.out.printf("%.2f%n", totalFitness / nets.size());
 			gene.train();
 		}
 	}

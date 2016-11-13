@@ -4,7 +4,7 @@ public class Neuron {
 	Random randy = new Random();
 	int width = 0;
 	private final float initialWeightMax = 5;
-	final float delta = 0.25f;
+	final float delta = 0.15f;
 	float[] weight;
 	float val;
 
