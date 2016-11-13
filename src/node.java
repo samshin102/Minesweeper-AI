@@ -3,6 +3,15 @@ public class node {
 	//number of adjacent bombs, -1 means a bomb is present
 	int val;
 	boolean show = false;
+	boolean flag = false;
+			
+	public void flag(){
+		flag = !flag;
+	}
+	
+	public boolean getFlag(){
+		return flag;
+	}
 	
 	public boolean getShow(){
 		return show;

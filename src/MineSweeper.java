@@ -5,26 +5,29 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class MineSweeper extends JFrame implements Runnable {
 
 	GameMap mappy;
 	int X;
 	int Y;
-	int w = 507;
-	int h = 530;
+	int w = 520;
+	int h = 542;
+	int s = 16;
+	int b = 25;
 	Random rand = new Random();
 	Genetic gene;
 
-	public void run() {
-
+	
+	public void run(){
+		while(true){
 		try {
 			Thread.sleep(100);
 			mappy.paint();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
 		
 		for(int i = 0; i < 250; i++){
 			Network network = new Network(8, 3, 3, 1);
@@ -124,6 +127,7 @@ public class MineSweeper extends JFrame implements Runnable {
 				}
 			}
 		}
+		}
 	}
 
 	public MineSweeper() {
@@ -133,18 +137,26 @@ public class MineSweeper extends JFrame implements Runnable {
 		this.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				Point platz = e.getPoint();
-				Y = (int) (platz.getX() / (507 / 10));
-				X = (int) (platz.getY() / (530 / 10));
-				mappy.activate(X, Y);
+				Y = (int)Math.floor((platz.getX()/(512/s)));
+				X = (int)Math.ceil((platz.getY()/(512/s)));
+				X-=2;
+				if(SwingUtilities.isLeftMouseButton(e)){
+					mappy.paint();
+					if(!mappy.activate(X, Y))
+						System.exit(0);
+				}
+				else if(SwingUtilities.isRightMouseButton(e)){
+					mappy.flag(X,Y);
+					mappy.paint();
+				}
 			}
 		});
 	}
 
 	@SuppressWarnings("static-access")
-	public void init() {
-		mappy = new GameMap(10, 10);
-		gene = new Genetic();
-
+	public void init(){
+		mappy = new GameMap(s, b);
+		
 		Dimension size = new Dimension(w, h);
 
 		this.setSize(size);
