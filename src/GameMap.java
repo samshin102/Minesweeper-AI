@@ -210,7 +210,7 @@ public class GameMap extends JPanel{
 					else{
 						g.setColor(Color.BLUE);
 					}
-					if(!mappy[r][c].getFlag())
+					if(!mappy[r][c].getFlag() && mappy[r][c].getVal() != 0)
 					g.drawString("" + mappy[r][c].getVal(), (c)*w/s + w/(2*s) - 2, (r+1)*h/s - h/(2*s) + 5);
 				}
 			}
