@@ -50,7 +50,7 @@ public class Network {
 		}
 		for (int r = 1; r < net.length - 1; r++) {
 			for (int c = 0; c < net[r].length; c++) {
-				for (int nc = 0; nc > net[r + 1].length; nc++) {
+				for (int nc = 0; nc < net[r + 1].length; nc++) {
 					net[r + 1][nc].val += net[r][c].getValue(nc);
 				}
 			}

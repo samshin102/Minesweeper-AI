@@ -21,11 +21,11 @@ public class Neuron {
 
 	public void mutate() {
 		int w = randy.nextInt(weight.length);
+		weight[w] += delta * (randy.nextBoolean() ? 1 : -1);
 	}
 
 	private float actFunc(float v) {
-		float actiVal = (float) (Math.pow(Math.E, v)
-				- Math.pow(Math.E, -v) / (Math.pow(Math.E, v) + Math.pow(Math.E, -v)));
+		float actiVal = (float) (Math.pow(Math.E, v) - Math.pow(Math.E, -v) / (Math.pow(Math.E, v) + Math.pow(Math.E, -v)));
 		return actiVal;
 	}
 
