@@ -7,6 +7,13 @@ public class Genetic {
 	public int popSize = 250;
 	public int purgeRate = 20;
 	public List<Network> pop = new ArrayList<>();
+	
+	public Genetic(int inputWidth, int hiddenWidth, int hiddenDepth, int output){
+		for (int i = 0; i < popSize; i++) {
+			Network network = new Network(8, 3, 3, 1);
+			pop.add(network);
+		}
+	}
 
 	public void train() {
 		purge();

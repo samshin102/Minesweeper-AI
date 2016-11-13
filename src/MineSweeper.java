@@ -19,114 +19,40 @@ public class MineSweeper extends JFrame implements Runnable {
 	Random rand = new Random();
 	Genetic gene;
 
-	
-	public void run(){
-		while(true){
-		try {
-			Thread.sleep(100);
-			mappy.paint();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+	public int getMapVal(int r, int c) {
+		if (r < 0 || c < 0 || r >= s || c >= s) {
+			return 0;
 		}
-		
-		for(int i = 0; i < 250; i++){
-			Network network = new Network(8, 3, 3, 1);
-			gene.pop.add(network);
-		boolean cj = false;
-		while (!cj) {
-			int x = rand.nextInt(16);
-			int y = rand.nextInt(16);
-			if((mappy.getMappy())[x][y].getShow() && mappy.getMappy()[x][y].getVal()  != 0){
-				cj = true;
-				float[] input = new float[8];
-				if(x == 15 && y == 0){
-					input[0] += 0;
-					input[1] += (float)(mappy.getMappy()[x-1][y].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[2] += (float)(mappy.getMappy()[x-1][y+1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[3] += 0;
-					input[4] += (float)(mappy.getMappy()[x][y+1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[5] += 0;
-					input[6] += 0;
-					input[7] += 0;
-				}else if(x == 0 && y == 15){
-					input[0] += 0;
-					input[1] += 0;
-					input[2] += 0;
-					input[3] += (float)(mappy.getMappy()[x][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[4] += 0;
-					input[5] += (float)(mappy.getMappy()[x+1][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[6] += (float)(mappy.getMappy()[x+1][y].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[7] += 0;
-				}else if(x == 15 && y == 15){
-					input[0] += (float)(mappy.getMappy()[x-1][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[1] += (float)(mappy.getMappy()[x-1][y].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[2] += 0;
-					input[3] += (float)(mappy.getMappy()[x][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[4] += 0;
-					input[5] += 0;
-					input[6] += 0;
-					input[7] += 0;
-				}else if(x == 0 && y == 0){
-					input[0] += 0;
-					input[1] += 0;
-					input[2] += 0;
-					input[3] += 0;
-					input[4] += (float)(mappy.getMappy()[x][y+1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[5] += 0;
-					input[6] += (float)(mappy.getMappy()[x+1][y].getShow()?mappy.getMappy()[x][y].getVal():0); 
-					input[7] += (float)(mappy.getMappy()[x+1][y+1].getShow()?mappy.getMappy()[x][y].getVal():0);
-				}else if(x == 0){
-					input[0] += 0;
-					input[1] += 0;
-					input[2] += 0;
-					input[3] += (float)(mappy.getMappy()[x][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[4] += (float)(mappy.getMappy()[x][y+1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[5] += (float)(mappy.getMappy()[x+1][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[6] += (float)(mappy.getMappy()[x+1][y].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[7] += (float)(mappy.getMappy()[x+1][y+1].getShow()?mappy.getMappy()[x][y].getVal():0); /////////////////
-				}else if(y == 0){
-					input[0] += 0;
-					input[1] += (float)(mappy.getMappy()[x-1][y].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[2] += (float)(mappy.getMappy()[x-1][y+1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[3] += 0;
-					input[4] += (float)(mappy.getMappy()[x][y+1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[5] += 0;
-					input[6] += (float)(mappy.getMappy()[x+1][y].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[7] += (float)(mappy.getMappy()[x+1][y+1].getShow()?mappy.getMappy()[x][y].getVal():0);
-				}else if(y == 15){
-					input[0] += (float)(mappy.getMappy()[x-1][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[1] += (float)(mappy.getMappy()[x][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[2] += 0; 
-					input[3] += (float)(mappy.getMappy()[x][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[4] += 0;
-					input[5] += (float)(mappy.getMappy()[x+1][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[6] += (float)(mappy.getMappy()[x-1][y].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[7] += 0;
-				}else if(x == 15){
-					input[0] += (float)(mappy.getMappy()[x-1][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[1] += (float)(mappy.getMappy()[x-1][y].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[2] += (float)(mappy.getMappy()[x-1][y+1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[3] += (float)(mappy.getMappy()[x][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[4] += (float)(mappy.getMappy()[x][y+1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[5] += 0;
-					input[6] += 0;
-					input[7] += 0;
-				}else{
-					input[0] += (float)(mappy.getMappy()[x-1][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[1] += (float)(mappy.getMappy()[x-1][y].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[2] += (float)(mappy.getMappy()[x-1][y+1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[3] += (float)(mappy.getMappy()[x][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[4] += (float)(mappy.getMappy()[x][y+1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[5] += (float)(mappy.getMappy()[x+1][y-1].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[6] += (float)(mappy.getMappy()[x+1][y].getShow()?mappy.getMappy()[x][y].getVal():0);
-					input[7] += (float)(mappy.getMappy()[x+1][y+1].getShow()?mappy.getMappy()[x][y].getVal():0);
-				}
-				if(network.getOutput(input)[0] > .5F){
-					
-				}
+		return mappy.getMappy()[r][c].getVal();
+	}
+
+	public void run() {
+		gene = new Genetic(8, 3, 3, 1);
+		while (true) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			float[][] danger = new float[s][s];
+			for (int r = 0; r < danger.length; r++) {
+				for (int c = 0; c < danger[r].length; c++) {
+					if (mappy.getMappy()[r][c].getShow()) {
+						danger[r][c] = Integer.MAX_VALUE;
+					} else {
+						float[] input = new float[8];
+						input[0] = getMapVal(r - 1, c - 1);
+						input[1] = getMapVal(r - 1, c);
+						input[2] = getMapVal(r - 1, c + 1);
+						input[3] = getMapVal(r, c - 1);
+						input[4] = getMapVal(r, c + 1);
+						input[5] = getMapVal(r + 1, c - 1);
+						input[6] = getMapVal(r + 1, c);
+						input[7] = getMapVal(r + 1, c + 1);
+						// danger[r][c] =
+					}
 				}
 			}
-		}
 		}
 	}
 
@@ -137,16 +63,15 @@ public class MineSweeper extends JFrame implements Runnable {
 		this.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				Point platz = e.getPoint();
-				Y = (int)Math.floor((platz.getX()/(512/s)));
-				X = (int)Math.ceil((platz.getY()/(512/s)));
-				X-=2;
-				if(SwingUtilities.isLeftMouseButton(e)){
+				Y = (int) Math.floor((platz.getX() / (512 / s)));
+				X = (int) Math.ceil((platz.getY() / (512 / s)));
+				X -= 2;
+				if (SwingUtilities.isLeftMouseButton(e)) {
 					mappy.paint();
-					if(!mappy.activate(X, Y))
+					if (!mappy.activate(X, Y))
 						System.exit(0);
-				}
-				else if(SwingUtilities.isRightMouseButton(e)){
-					mappy.flag(X,Y);
+				} else if (SwingUtilities.isRightMouseButton(e)) {
+					mappy.flag(X, Y);
 					mappy.paint();
 				}
 			}
@@ -154,9 +79,9 @@ public class MineSweeper extends JFrame implements Runnable {
 	}
 
 	@SuppressWarnings("static-access")
-	public void init(){
+	public void init() {
 		mappy = new GameMap(s, b);
-		
+
 		Dimension size = new Dimension(w, h);
 
 		this.setSize(size);
