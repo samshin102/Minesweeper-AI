@@ -23,7 +23,7 @@ public class Genetic {
 	private void breed() {
 		int numChildren = popSize - pop.size();
 		Collections.sort(pop);
-		for (int i = 0; numChildren >= 0; i--) {
+		for (int i = pop.size()-1; numChildren >= 0; i--) {
 			pop.add(new Network(pop.get(i)));
 			numChildren--;
 		}

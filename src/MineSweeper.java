@@ -23,13 +23,15 @@ public class MineSweeper extends JFrame implements Runnable {
 
 	public int getMapVal(int r, int c) {
 		if (r < 0 || c < 0 || r >= s || c >= s) {
-			return 0;
+			return -2;
+		}
+		if(!mappy.getMappy()[r][c].getShow()){
+			return -1;
 		}
 		return mappy.getMappy()[r][c].getVal();
 	}
 
 	public void run() {
-		System.out.println("run");
 		gene = new Genetic(8, 3, 3, 1);
 		while (true) {
 			List<Network> nets = gene.pop;
@@ -53,7 +55,9 @@ public class MineSweeper extends JFrame implements Runnable {
 								input[5] = getMapVal(r + 1, c - 1);
 								input[6] = getMapVal(r + 1, c);
 								input[7] = getMapVal(r + 1, c + 1);
-								danger[r][c] = net.getOutput(input)[0];
+								float d = net.getOutput(input)[0];
+								System.out.println(d);
+								danger[r][c] = d;
 							}
 						}
 					}
@@ -69,6 +73,7 @@ public class MineSweeper extends JFrame implements Runnable {
 							}
 						}
 					}
+					System.out.println(lowVal);
 					System.out.println(lowR+" "+lowC);
 					if (mappy.activate(lowR, lowC)) {
 						fitness += 1;
