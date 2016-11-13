@@ -4,10 +4,16 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 public class Genetic {
-	public int popSize = 250;
-	public int purgeRate = 20;
+	public int popSize = 125;
+	public int purgeRate = 50;
 	public List<Network> pop = new ArrayList<>();
-	Network network = new Network();
+
+	public Genetic(int inputWidth, int hiddenWidth, int hiddenDepth, int output) {
+		for (int i = 0; i < popSize; i++) {
+			Network network = new Network(inputWidth, hiddenWidth, hiddenDepth, output);
+			pop.add(network);
+		}
+	}
 
 	public void train() {
 		purge();
@@ -17,8 +23,9 @@ public class Genetic {
 	private void breed() {
 		int numChildren = popSize - pop.size();
 		Collections.sort(pop);
-		for (int i = pop.size() - 1; i >= 0; i--) {
+		for (int i = pop.size() - 1; numChildren >= 0; i--) {
 			pop.add(new Network(pop.get(i)));
+			numChildren--;
 		}
 		for (int i = 0; i < pop.size(); i++) {
 			pop.get(i).mutate();
