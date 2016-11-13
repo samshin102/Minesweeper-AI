@@ -156,7 +156,7 @@ public class GameMap extends JPanel{
 		int count = 0;
 		for(int r = 0; r<s; r++){
 			for(int c = 0; c<s; c++){
-				if(mappy[r][c].getShow())
+				if(!mappy[r][c].getShow())
 					count++;
 			}
 		}

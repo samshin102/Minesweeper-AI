@@ -34,6 +34,7 @@ public class MineSweeper extends JFrame implements Runnable {
 
 	public void run() {
 		gene = new Genetic(8, 4, 1, 1);
+		int generation = 0;
 		while (true) {
 			List<Network> nets = gene.pop;
 			float totalFitness = 0;
@@ -82,6 +83,7 @@ public class MineSweeper extends JFrame implements Runnable {
 						totalFitness += fitness;
 					}
 					if (mappy.netWinCheck()) {
+						System.out.println("Winner!!! Neural network of generation: " + generation +" has cleared the minefield!");
 						System.exit(1);
 					}
 				}
@@ -90,6 +92,7 @@ public class MineSweeper extends JFrame implements Runnable {
 			System.out.printf("%.2f%n", totalFitness / nets.size());
 			gene.train();
 			mappy.genMap();
+			generation++;
 		}
 	}
 
