@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class Neuron {
 	Random randy = new Random();
+	int width = 0;
 	private final float initialWeightMax = 5;
 	final float delta = 0.25f;
 	private float[] weight;
@@ -12,11 +13,19 @@ public class Neuron {
 	}
 
 	public Neuron(int width) {
-		weight = new float[width];
+		this.width = width;
+		weight = new float[this.width];
 		for (int i = 0; i < weight.length; i++) {
 			weight[i] = (float) (initialWeightMax * randy.nextFloat() * (randy.nextBoolean() ? 1 : -1));
 		}
 		val = 0;
+	}
+	
+	public Neuron(Neuron p) {
+		weight = new float[p.width];
+		for (int i = 0; i < weight.length; i++) {
+			weight[i] = p.weight[i];
+		}
 	}
 
 	public void mutate() {

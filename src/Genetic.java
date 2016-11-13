@@ -11,7 +11,18 @@ public class Genetic {
 
 	public void train() {
 		purge();
+		breed();
+	}
 
+	private void breed() {
+		int numChildren = popSize - pop.size();
+		Collections.sort(pop);
+		for (int i = pop.size() - 1; i >= 0; i--) {
+			pop.add(new Network(pop.get(i)));
+		}
+		for (int i = 0; i < pop.size(); i++) {
+			pop.get(i).mutate();
+		}
 	}
 
 	private void purge() {
