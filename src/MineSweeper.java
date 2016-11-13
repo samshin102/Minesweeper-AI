@@ -89,6 +89,7 @@ public class MineSweeper extends JFrame implements Runnable {
 			}
 			System.out.printf("%.2f%n", totalFitness / nets.size());
 			gene.train();
+			mappy.genMap();
 		}
 	}
 
