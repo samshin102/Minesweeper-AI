@@ -13,6 +13,10 @@ public class node {
 		return 1;
 	}
 	
+	public void shade(){
+		show = false;
+	}
+	
 	public boolean getFlag(){
 		return flag;
 	}

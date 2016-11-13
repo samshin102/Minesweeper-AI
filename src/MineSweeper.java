@@ -72,7 +72,9 @@ public class MineSweeper extends JFrame implements Runnable {
 				if (SwingUtilities.isLeftMouseButton(e)) {
 					mappy.paint();
 
-					if(!mappy.activate(X, Y));
+					if(!mappy.activate(X, Y)){
+						mappy.resetVisible();
+					}
 				}
 				else if(SwingUtilities.isRightMouseButton(e)){
 					mappy.flag(X,Y);

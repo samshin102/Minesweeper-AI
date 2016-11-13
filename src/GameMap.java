@@ -149,6 +149,28 @@ public class GameMap extends JPanel{
 		return true;
 	}
 	
+	public boolean netWinCheck(){
+		int count = 0;
+		for(int r = 0; r<s; r++){
+			for(int c = 0; c<s; c++){
+				if(mappy[r][c].getShow())
+					count++;
+			}
+		}
+		if(count == 25){
+			return true;
+		}
+		else return false;
+	}
+	
+	public void resetVisible(){
+		for(int r = 0; r<s; r++){
+			for(int c = 0; c<s; c++){
+				mappy[r][c].shade();
+			}
+		}
+	}
+	
 	public void paintComponent(Graphics g) {
 		setOpaque(true);
 		super.paintComponent(g);
