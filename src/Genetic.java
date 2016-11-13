@@ -10,6 +10,7 @@ public class Genetic {
 
 	public void train() {
 		purge();
+
 	}
 
 	private void purge() {
@@ -23,14 +24,8 @@ public class Genetic {
 				deathsRow.add(defendent);
 			}
 		}
-		while(deathsRow.size()>0) {
+		while (deathsRow.size() > 0) {
 			pop.remove(deathsRow.poll());
 		}
-	}
-}
-
-class Network {
-	int compareTo(Network n) {
-		return -1;
 	}
 }
