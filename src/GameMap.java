@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.Arrays;
 
@@ -133,6 +134,9 @@ public class GameMap extends JPanel{
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, w, h);
 		g.setColor(Color.black);
+		
+		 g.setFont(g.getFont().deriveFont(g.getFont().getSize() * 2));
+		
 		for(int i = 1; i<11; i++){
 			g.drawLine((w/10)*i, 0, (w/10)*i, (h));
 		}
@@ -143,13 +147,16 @@ public class GameMap extends JPanel{
 		for(int r = 0; r<s; r++){
 			for(int c = 0; c<s; c++){
 				if(mappy[r][c].show){
-					if(mappy[r][c].getVal()==0){
-						g.setColor(Color.GRAY);
-						g.drawRect((c-1)*w/10, (r-1)*h/10, w/10-1, h/10-1);
+					if(mappy[r][c].getVal()==2){
+						g.setColor(Color.GREEN);
 					}
-					else
+					else if(mappy[r][c].getVal()>=3){
+						g.setColor(Color.RED);
+					}
+					else{
+						g.setColor(Color.cyan);
+					}
 					g.drawString("" + mappy[r][c].getVal(), (c)*w/10 +23, (r+1)*h/10 -20);
-					
 				}
 			}
 		}
