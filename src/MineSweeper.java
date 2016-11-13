@@ -3,22 +3,26 @@ import java.awt.Point;
 import java.awt.event.*;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class MineSweeper extends JFrame implements Runnable{
 
 	GameMap mappy;
 	int X;
 	int Y;
-	int w = 507;
-	int h = 530;
+	int w = 520;
+	int h = 542;
+	int s = 16;
+	int b = 25;
 	
 	public void run(){
-		
+		while(true){
 		try {
 			Thread.sleep(100);
 			mappy.paint();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}
 		}
 	}
 	
@@ -29,9 +33,18 @@ public class MineSweeper extends JFrame implements Runnable{
 		this.addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e) {
 				Point platz = e.getPoint();
-				Y = (int) (platz.getX()/(507/10));
-				X = (int) (platz.getY()/(530/10));
-				mappy.activate(X, Y);
+				Y = (int)Math.floor((platz.getX()/(512/s)));
+				X = (int)Math.ceil((platz.getY()/(512/s)));
+				X-=2;
+				if(SwingUtilities.isLeftMouseButton(e)){
+					mappy.paint();
+					if(!mappy.activate(X, Y))
+						System.exit(0);
+				}
+				else if(SwingUtilities.isRightMouseButton(e)){
+					mappy.flag(X,Y);
+					mappy.paint();
+				}
 			}
 		});
 	}
@@ -39,7 +52,7 @@ public class MineSweeper extends JFrame implements Runnable{
 	
 	@SuppressWarnings("static-access")
 	public void init(){
-		mappy = new GameMap(10, 10);
+		mappy = new GameMap(s, b);
 		
 		Dimension size = new Dimension(w, h);
 		

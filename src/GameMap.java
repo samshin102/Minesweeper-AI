@@ -9,8 +9,8 @@ public class GameMap extends JPanel{
 	node[][] mappy;
 	int s;
 	int bombs;
-	int w = 500;
-	int h = 500;
+	int w = 512;
+	int h = 512;
 	
 	public void paint(){
 		repaint();
@@ -92,6 +92,7 @@ public class GameMap extends JPanel{
 			int r1 = (int) Math.floor(Math.random()*s);
 			int c1 = (int) Math.floor(Math.random()*s);
 			mappy[r1][c1].setVal(-1);
+//			mappy[r1][c1].reveal();
 		}
 		
 		for(int r = 0; r<s; r++){
@@ -128,35 +129,47 @@ public class GameMap extends JPanel{
 		}
 	}
 	
+	public void flag(int r, int c){
+		mappy[r][c].flag();
+	}
+	
 	public void paintComponent(Graphics g) {
 		setOpaque(true);
 		super.paintComponent(g);
-		g.setColor(Color.DARK_GRAY);
+		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, w, h);
 		g.setColor(Color.black);
 		
 		 g.setFont(g.getFont().deriveFont(g.getFont().getSize() * 2));
 		
-		for(int i = 1; i<11; i++){
-			g.drawLine((w/10)*i, 0, (w/10)*i, (h));
+		for(int i = 1; i<s+1; i++){
+			g.drawLine((w/s)*i, 0, (w/s)*i, (h));
 		}
-		for(int o=1; o<11; o++){
-			g.drawLine(0,(h/10)*o, w,(h/10)*o);
+		for(int o=1; o<s+1; o++){
+			g.drawLine(0,(h/s)*o, w,(h/s)*o);
 		}
 		
 		for(int r = 0; r<s; r++){
 			for(int c = 0; c<s; c++){
-				if(mappy[r][c].show){
-					if(mappy[r][c].getVal()==2){
+				if(mappy[r][c].show || mappy[r][c].getFlag()){
+					if(mappy[r][c].getFlag()){
+						g.setColor(Color.ORANGE);
+						g.drawString("FLAG", (c)*w/s + 2, (r+1)*h/s - h/(2*s) + 5);
+					}
+					else if(mappy[r][c].getVal()==2){
 						g.setColor(Color.GREEN);
 					}
 					else if(mappy[r][c].getVal()>=3){
 						g.setColor(Color.RED);
 					}
-					else{
-						g.setColor(Color.cyan);
+					else if(mappy[r][c].getVal()==0){
+						g.setColor(Color.PINK);
 					}
-					g.drawString("" + mappy[r][c].getVal(), (c)*w/10 +23, (r+1)*h/10 -20);
+					else{
+						g.setColor(Color.BLUE);
+					}
+					if(!mappy[r][c].getFlag())
+					g.drawString("" + mappy[r][c].getVal(), (c)*w/s + w/(2*s) - 2, (r+1)*h/s - h/(2*s) + 5);
 				}
 			}
 		}
