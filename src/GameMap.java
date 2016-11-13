@@ -43,32 +43,41 @@ public class GameMap extends JPanel{
 	
 	public void reveal(int r, int c){
 		mappy[r][c].reveal();
-//		if(mappy[r][c].getVal()==0){
-//			if(r>0){
-//				reveal(r-1, c);
-//				if(c>0){
-//					reveal(r-1, c-1);
-//				}
-//				if(c<s-1){
-//					reveal(r-1, c+1);
-//				}
-//			}
-//			if(c>0){
-//				reveal(r, c-1);
-//			}
-//			if(r<s-1){
-//				reveal(r+1, c);
-//				if(c<s-1){
-//					reveal(r+1, c+1);
-//				}
-//				if(c>0){
-//					reveal(r+1, c-1);
-//				}
-//			}
-//			if(c<s-1){
-//				reveal(r, c+1);
-//			}
-//		}
+		if(mappy[r][c].getVal()== 0){
+			if(r>0){
+				if(!mappy[r-1][c].getShow())
+				reveal(r-1, c);
+				if(c>0){
+					if(!mappy[r-1][c-1].getShow())
+					reveal(r-1, c-1);
+				}
+				if(c<s-1){
+					if(!mappy[r-1][c+1].getShow())
+					reveal(r-1, c+1);
+				}
+			}
+			if(c>0){
+				if(!mappy[r][c-1].getShow())
+				reveal(r, c-1);
+			}
+			if(r<s-1){
+				if(!mappy[r+1][c].getShow())
+				reveal(r+1, c);
+				if(c<s-1){
+					if(!mappy[r+1][c+1].getShow())
+					reveal(r+1, c+1);
+				}
+				if(c>0){
+					if(!mappy[r+1][c-1].getShow())
+					reveal(r+1, c-1);
+				}
+			}
+			if(c<s-1){
+				if(!mappy[r][c+1].getShow())
+				reveal(r, c+1);
+			}
+			
+		}
 	}
 	
 	public void genMap(){
@@ -131,11 +140,15 @@ public class GameMap extends JPanel{
 			g.drawLine(0,(h/10)*o, w,(h/10)*o);
 		}
 		
-		g.setColor(Color.CYAN);
 		for(int r = 0; r<s; r++){
 			for(int c = 0; c<s; c++){
-				if(mappy[r][c].show)
+				if(mappy[r][c].show){
+					if()
+					
+					else
 					g.drawString("" + mappy[r][c].getVal(), (c)*w/10 +23, (r+1)*h/10 -20);
+					
+				}
 			}
 		}
 		repaint();

@@ -4,6 +4,9 @@ public class node {
 	int val;
 	boolean show = false;
 	
+	public boolean getShow(){
+		return show;
+	}
 	public node(int val){
 		this.val = val;
 	}
