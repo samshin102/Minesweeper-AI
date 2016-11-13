@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+@SuppressWarnings("serial")
 public class MineSweeper extends JFrame implements Runnable {
 
 	GameMap mappy;
@@ -60,7 +61,7 @@ public class MineSweeper extends JFrame implements Runnable {
 					float lowVal = Integer.MAX_VALUE;
 					int lowC = 0;
 					for (int r = 0; r < danger.length; r++) {
-						for (int c = 0; c < danger[c].length; c++) {
+						for (int c = 0; c < danger[r].length; c++) {
 							if (danger[r][c] < lowVal) {
 								lowR = r;
 								lowC = c;
