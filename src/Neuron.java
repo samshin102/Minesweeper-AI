@@ -1,36 +1,35 @@
-
+import java.util.Random;
 
 public class Neuron {
-	
-	private float weight;
+	Random randy = new Random();
+	private final float initialWeightMax = 5;
+	final float delta = 0.25f;
+	private float[] weight;
 	float val;
-	
-	public Neuron(){
-		weight = 1F;
+
+	public Neuron() {
+		this(0);
+	}
+
+	public Neuron(int width) {
+		weight = new float[width];
+		for (int i = 0; i < weight.length; i++) {
+			weight[i] = (float) (initialWeightMax * randy.nextFloat() * (randy.nextBoolean() ? 1 : -1));
+		}
 		val = 0;
 	}
-	public Neuron(float weight){
-		this.weight = weight;
-		val = 0;
+
+	public void mutate() {
+		int w = randy.nextInt(weight.length);
 	}
-	
-	public float getWeight(){
-		return weight;
+
+	private float actFunc(float v) {
+		float actiVal = (float) (Math.pow(Math.E, v)
+				- Math.pow(Math.E, -v) / (Math.pow(Math.E, v) + Math.pow(Math.E, -v)));
+		return actiVal;
 	}
-	
-	public float actFunc(float[] rawInput){
-		float summedInput = 0;
-		for(float val : rawInput)
-			summedInput += val;
-		val = (float) (Math.pow(Math.E, summedInput)-Math.pow(Math.E, -summedInput)/Math.pow(Math.E, summedInput)+Math.pow(Math.E, -summedInput) );
-		return val;
+
+	public float getValue(int nc) {
+		return weight[nc] * actFunc(val);
 	}
-	public float getValue(){
-		return val;
-	}
-	
-	public float getOutput(){
-		return (weight * val);
-	}
-	
 }
